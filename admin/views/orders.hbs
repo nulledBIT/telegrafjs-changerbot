@@ -1,0 +1,58 @@
+
+
+<div class="title-page-block">
+    <h1>{{title}}</h1>
+    <div class="orders-stats">
+        Всего: {{orders.length}} заказов
+    </div>
+</div>
+
+<div class="content-block inner-scroll">
+
+    {{#if orders.length}}
+
+        {{#each orders}}
+            <div class="order-item" data-id="{{id}}">
+                <a href="/admin/orders/{{id}}"></a>
+                <div class="order-item-col item-col-name"> {{name}} </div>
+                <div class="order-item-col"> {{btcSum}} BTC </div>
+                <div class="order-item-col"> {{rubSum}} ₽ </div>
+                <div class="order-item-col"> {{received}} </div>
+                <div class="order-item-col">
+                    {{#if isAccepted}}
+                        <span class="order-status accepted">Оплачен</span>
+                    {{else}}
+                        <span class="order-status processing">В обработке</span>
+                    {{/if}}
+
+                </div>
+
+
+                {{!-- <div class="order-item-col order-item-col-buttons">
+                    
+
+                    <form action="" method="POST">
+                        <input name="accept-order" type="text" value="{{id}}" hidden />
+                        <button class="uk-button uk-button-primary uk-button-small uk-button-icon" type="submit">
+                            <span class="uk-margin-small-right" uk-icon="check"></span>
+                        </button>
+                    </form>  
+
+                    <form action="" method="POST">
+                        <input name="delete-order" type="text" value="{{id}}" hidden />
+                         <button class="uk-button uk-button-danger uk-button-small uk-button-icon" type="submit">
+                        <span class="uk-margin-small-right" uk-icon="close"></span>
+                    </button>
+                    </form>
+
+                </div> --}}
+            </div>
+        {{/each}}
+
+
+    {{else}}
+        <p>Заказов пока нет</p>
+    {{/if}}
+
+</div>
+

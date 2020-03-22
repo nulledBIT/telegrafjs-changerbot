@@ -1,0 +1,37 @@
+
+
+
+<nav class="uk-navbar-container">
+    <div class="uk-navbar-left">
+
+        <ul class="uk-navbar-nav">
+
+            {{#if isAdmin}}
+                <li class="uk-active"><a href="/admin">Главная</a></li>
+            {{else}}
+                <li><a href="/admin">Главная</a></li>
+            {{/if}}
+            
+            {{#if isOrders}}
+                <li class="uk-active"><a href="/admin/orders">Заказы</a></li>
+            {{else}}
+                <li><a href="/admin/orders">Заказы</a></li>
+            {{/if}}
+            
+            {{#if isStats}}
+                <li class="uk-active"><a href="/admin/stats">Статистика</a></li>
+            {{else}}
+                <li><a href="/admin/stats">Статистика</a></li>
+            {{/if}}
+            
+            {{#if isSettings}}
+                <li class="uk-active"><a href="/admin/settings">Настройки</a></li>
+            {{else}}
+                <li><a href="/admin/settings">Настройки</a></li>
+            {{/if}}
+                <li><a href="#">Выход</a></li>
+            
+        </ul>
+
+    </div>
+</nav>

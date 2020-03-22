@@ -1,0 +1,65 @@
+
+
+<div class="title-page-block">
+    <h1>{{title}}</h1>
+</div>
+
+<div class="content-block inner-scroll">
+
+
+    {{#each order}}
+        
+        <div class="order-info-item">
+            <strong>Клиент: </strong> {{name}} ({{chatId}})
+        </div>
+        <div class="order-info-item">
+            <strong>Время заказа: </strong> {{received}}
+        </div><br>
+        <div class="order-info-item">
+            <strong>Сумма заказа: </strong> {{rubSum}} ₽
+        </div>
+        <div class="order-info-item">
+            <strong>Кол-во BTC: </strong> {{btcSum}} ₿
+        </div>
+        <div class="order-info-item">
+            <strong>BTC кошелек: </strong> {{btcWallet}}
+        </div><br>
+        <div class="order-info-item">
+            {{#if isAccepted}}
+                <strong>Статус: </strong><span class="order-status accepted">Оплачен</span>
+            {{else}}
+                <strong>Статус: </strong><span class="order-status processing">В обработке</span>
+            {{/if}}
+        </div>
+
+        <div class="order-info-buttons">
+            <form action="/admin/orders/{{id}}/accepted" method="POST" >
+                <input name="accept-order-userId" type="text" value="{{chatId}}" hidden />
+                <input name="accept-order" type="text" value="{{id}}" hidden />
+                    {{#if isAccepted}}
+
+                    {{else}}
+                        <button class="uk-button uk-button-primary uk-width-1-1 uk-button-large" type="submit">Подтвердить</button> 
+                    {{/if}}
+            </form>
+            
+            <form action="/admin/orders/{{id}}/denied" method="POST">
+                <input name="deny-order" type="text" value="{{id}}" hidden />
+                    {{#if isAccepted}}
+                        <button class="uk-button uk-button-danger uk-width-1-1 uk-button-large" type="submit">Отклонить</button>  
+                    {{else}}
+                        {{!-- <button class="uk-button uk-button-danger uk-width-1-1 uk-button-large margin-left-btn" type="submit">Отклонить</button>  --}}
+                    {{/if}}
+            </form>
+
+        </div>
+
+        <br><a class="link-back" href="/admin/orders/"><span class="uk-margin-small-right" uk-icon="arrow-left"></span> Вернуться к заказам</a>
+
+    {{/each}}
+
+
+
+
+</div>
+
