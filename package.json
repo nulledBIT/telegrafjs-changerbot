@@ -6,12 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "admin": "nodemon ./admin/index.js",
-    "bot": "nodemon ./bot/bot.js"
+    "bot": "nodemon ./bot/bot.js",
+    "dev": "concurrently \"npm run bot\" \"npm run admin\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "concurrently": "^5.1.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "mongoose": "^5.9.5",
