@@ -1,7 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-const Telegraf = require('telegraf')
-const telegram = require('telegraf/telegram')
+const Telegram = require('telegraf/telegram')
+const botConfig = require('../bot/bot-config')
+const telegram = new Telegram(botConfig.TOKEN)
 
 const config = require('../config');
 const mongoose = require('mongoose');
@@ -17,12 +18,8 @@ const functions = {
     // ORDERS HANDLERS
 
     async notifyClient(chat, order) {
-        // const bot = new Telegraf('')
-
-        // const orderId = order.split('-')[0]
-        // bot.telegram.sendMessage(chat, `Ваш заказ #${orderId} успешно выполнен!`)
-
-        // bot.launch()
+        const orderId = order.split('-')[0]
+        telegram.sendMessage(chat, `Ваш заказ #${orderId} успешно выполнен!`)
     },
 
     async getAllOrders() {
@@ -75,11 +72,10 @@ const functions = {
     async acceptOrder(id) {
         return this.getOrderById(id)
             .then(orderData => {
-                const data = orderData[0];
+                const data = orderData[0]
+
                 data.isAccepted = true;
-
                 const order = new Order(data);
-
                 order.save((err, order) => {
                     if (err) throw err;
                 });
@@ -91,9 +87,9 @@ const functions = {
     async denyOrder(id) {
         return this.getOrderById(id)
             .then(orderData => {
-                const data = orderData[0];
+                const data = orderData[0]
+                
                 data.isAccepted = false;
-
                 const order = new Order(data);
 
                 order.save((err, order) => {

@@ -5,7 +5,7 @@ const msg = require('../../../util/messages')
 const kb = require('../../../util/keyboards')
 const Wizard = require('telegraf/scenes/wizard')
 const telegram = require('telegraf/telegraf')
-
+const botConfig = require('../../../bot-config')
 
 const btcToOrder = new Wizard(
     'btcToOrder',
@@ -36,8 +36,9 @@ const btcToOrder = new Wizard(
 
                     // Отправляем админу уведомление
                     const { name, btc, rub, wallet} = ctx.session.order
+                    const link = `https://t.me/${name}`
                     const adminOrderInfo = `Имя ${name}\nBTC ${btc}\nRUB: ${rub} ₽\nКошелек: ${wallet}`
-                    ctx.telegram.sendMessage(1061462513, `ЗАКАЗ #${orderId}\n\n${adminOrderInfo}\n\nОбработаешь? 😏`)
+                    ctx.telegram.sendMessage(botConfig.adminId, `ЗАКАЗ #${orderId}\n\n${adminOrderInfo}\n\nОбработаешь? 😏\n${link}\n${link}`)
         
                     return ctx.scene.leave()
                     break
@@ -71,7 +72,7 @@ const btcToOrder = new Wizard(
             if (rub >= config.MIN_ORDER_RUB) {
                 ctx.reply(`Для покупки ${btc} BTC\nВам нужно перевести на карту банка ${rub} RUB\n\n${msg.main.paymentWarning}`, kb.moveToPayment);
             } else {
-                ctx.reply(`Минимальная сумма ${config.MIN_ORDER_RUB} RUB!`)
+                ctx.reply(`Минимальная сумма ${config.MIN_ORDER_RUB} RUB!\nХотите меньше? -Пишите оператору.\nhttps://t.me/BtcOneChange`, { disable_web_page_preview: true })
                 return
             }
         } else {
